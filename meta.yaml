@@ -78,9 +78,9 @@ requirements:
 
 test:
   imports:
-    - UnbinnedAnalysis
     - pyLikelihood
-
+    - UnbinnedAnalysis
+    
   commands:
     # These tests inspect linkages and libraries. They are very slow, so comment them out
     # for a quicker turnaround when testing
