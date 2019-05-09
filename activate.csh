@@ -31,6 +31,7 @@ setenv CALDB $FERMI_DIR/data/caldb
 
 # Add path for the ST binaries
 setenv PATH ${CONDA_PREFIX}/bin/${condaname}:${CONDA_PREFIX}/lib/python2.7/site-packages/fermitools/GtBurst/commands/:${PATH}
+setenv path ${PATH}
 
 # Setup PFILES
 
