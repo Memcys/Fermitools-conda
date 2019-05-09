@@ -50,7 +50,7 @@ steps:
   condition: and(succeeded(), eq(variables['imageName'], 'macOS-10.13'))
   displayName: Upload Mac Binary
   
-- bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/linux-64/fermitools*.tar.bz2
+- bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /usr/share/miniconda/envs/py2_build/conda-bld/linux-64/fermitools*.tar.bz2
   condition: and(succeeded(), eq(variables['imageName'], 'ubuntu-16.04'))
   displayName: Upload Linux Binary
 
