@@ -76,12 +76,12 @@ requirements:
     - wcslib 5.18
     - xerces-c 3.2.0
 
-test:
-  imports:
-    - pyLikelihood
-    - UnbinnedAnalysis
+#test:
+#  imports:
+#    - pyLikelihood
+#    - UnbinnedAnalysis
     
-  commands:
+#  commands:
     # These tests inspect linkages and libraries. They are very slow, so comment them out
     # for a quicker turnaround when testing
     #- conda inspect linkages -p $PREFIX {{ name }}  # [not win]
