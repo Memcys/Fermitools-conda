@@ -46,12 +46,12 @@ steps:
     conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
   displayName: Run build
     
-- condition: $(imageName) == 'macOS-10.13'
-    bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/osx-64/fermitools*.tar.bz2
+- bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/osx-64/fermitools*.tar.bz2
+  condition: containsValue($(imageName),'macOS-10.13')
   displayName: Upload Mac Binary
   
-- condition: $(imageName) == 'ubuntu-16.04'
-    bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/linux-64/fermitools*.tar.bz2
+- bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/linux-64/fermitools*.tar.bz2
+  condition: containsValue($(imageName),'ubuntu-16.04')
   displayName: Upload Linux Binary
 
 - bash: | 
