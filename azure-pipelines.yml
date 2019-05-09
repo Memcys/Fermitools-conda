@@ -31,11 +31,11 @@ steps:
     source deactivate
   displayName: Set up environment for build
 
-- timeoutInMinutes: 60
-  bash: |
+- bash: |
     source activate py2_build
     conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
     source deactivate
+  timeoutInMinutes: 60  
   displayName: Run build
     
 - bash: |
@@ -59,8 +59,8 @@ steps:
     cd test
   displayName: Set up test environment
 
-- timeoutInMinutes: 120
-  bash: |
+- bash: |
     source activate test
     ST-unit-test --bit64
+  timeoutInMinutes: 120
   displayName: Run unit tests
