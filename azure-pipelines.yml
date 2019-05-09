@@ -34,6 +34,9 @@ steps:
 - bash: |
     source activate py2_build
     conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
+    conda create --yes --quiet --use-local --name test -c conda-forge/label/cf201901 -c fermi -c jasercion/label/dev fermitools fermitools-test-scripts
+    mkdir test
+    cd test
     source deactivate
   timeoutInMinutes: 60  
   displayName: Run build
@@ -51,13 +54,6 @@ steps:
     source deactivate
   condition: and(succeeded(), eq(variables['imageName'], 'ubuntu-16.04'))
   displayName: Upload Linux Binary
-
-- bash: | 
-    source deactivate
-    conda create --yes --quiet --use-local --name test -c conda-forge/label/cf201901 -c fermi -c jasercion/label/dev fermitools fermitools-test-scripts
-    mkdir test
-    cd test
-  displayName: Set up test environment
 
 - bash: |
     source activate test
