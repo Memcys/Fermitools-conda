@@ -9,12 +9,12 @@ variables:
 - group: Anaconda Keys
 strategy:
   matrix:
-    linux:
-      imageName: 'ubuntu-16.04'
+    #linux:
+    #  imageName: 'ubuntu-16.04'
     mac:
       imageName: 'macOS-10.13'
-job: FermitoolsBuild
-timeoutInMinutes: 150
+#job: FermitoolsBuild
+#timeoutInMinutes: 150
 pool:
   vmImage: $(imageName)
 steps:
