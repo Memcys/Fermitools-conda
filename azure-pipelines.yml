@@ -5,17 +5,14 @@
 
 trigger:
 - master
-
 variables:
 - group: Anaconda Keys
-
 strategy:
   matrix:
     linux:
       imageName: 'ubuntu-16.04'
     mac:
       imageName: 'macOS-10.13'
-
 job: FermitoolsBuild
 timeoutInMinutes: 150
 pool:
@@ -23,16 +20,13 @@ pool:
 steps:
 - bash: echo "##vso[task.prependpath]$CONDA/bin"
   displayName: Add conda to PATH
-
 - bash: conda create --yes --quiet --name py2_build -c conda-forge python=2.7
-  displayName: Create Anaconda environment
-  
+  displayName: Create Anaconda environment 
 - bash: |
     source activate py2_build
     conda install --yes -c conda-forge conda-build anaconda-client
     source deactivate
   displayName: Set up environment for build
-
 - bash: |
     source activate py2_build
     conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
@@ -40,25 +34,20 @@ steps:
     mkdir test
     cd test
     source deactivate
-  timeoutInMinutes: 60  
   displayName: Run build
-    
 - bash: |
     source activate py2_build
     anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/osx-64/fermitools*.tar.bz2
     source deactivate
   condition: and(succeeded(), eq(variables['imageName'], 'macOS-10.13'))
   displayName: Upload Mac Binary
-  
 - bash: |
     source activate py2_build
     anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /usr/share/miniconda/envs/py2_build/conda-bld/linux-64/fermitools*.tar.bz2
     source deactivate
   condition: and(succeeded(), eq(variables['imageName'], 'ubuntu-16.04'))
   displayName: Upload Linux Binary
-
 - bash: |
     source activate test
     ST-unit-test --bit64
-  timeoutInMinutes: 120
   displayName: Run unit tests
