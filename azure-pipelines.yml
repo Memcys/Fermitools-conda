@@ -6,9 +6,6 @@
 trigger:
 - master
 
-job: FermitoolsBuild
-timeoutInMinutes: 150
-
 variables:
 - group: Anaconda Keys
 
@@ -19,9 +16,10 @@ strategy:
     mac:
       imageName: 'macOS-10.13'
 
+job: FermitoolsBuild
+timeoutInMinutes: 150
 pool:
   vmImage: $(imageName)
-
 steps:
 - bash: echo "##vso[task.prependpath]$CONDA/bin"
   displayName: Add conda to PATH
