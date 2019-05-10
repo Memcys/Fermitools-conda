@@ -12,10 +12,8 @@ variables:
 strategy:
   matrix:
     linux:
-      timeoutInMinutes: 150
       imageName: 'ubuntu-16.04'
     mac:
-      timeoutInMinutes: 150
       imageName: 'macOS-10.13'
       
 pool:
