@@ -29,12 +29,8 @@ setenv CALDBROOT $FERMI_DIR/data/caldb
 setenv CALDB $FERMI_DIR/data/caldb
 
 
-# Add path for the ST binaries                                                                                                                                                                                    
-if ("$0" == "-tcsh") then
-    set path = (${CONDA_PREFIX}/bin/${condaname} ${CONDA_PREFIX}/lib/python2.7/site-packages/fermitools/GtBurst/commands/ $path)
-else
-    setenv PATH ${CONDA_PREFIX}/bin/${condaname}:${CONDA_PREFIX}/lib/python2.7/site-packages/fermitools/GtBurst/commands/:${PATH}
-endif
+# Add path for the ST binaries                                                                                                                                                                                   
+set path = (${CONDA_PREFIX}/bin/${condaname} ${CONDA_PREFIX}/lib/python2.7/site-packages/fermitools/GtBurst/commands/ $path)
 
 # Setup PFILES
 
