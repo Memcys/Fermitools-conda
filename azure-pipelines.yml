@@ -28,6 +28,7 @@ steps:
 - bash: |
     conda create --yes --quiet --name py2_build -c conda-forge python=2.7
     conda init bash
+    source ~/.bashrc
   displayName: Create Anaconda environment 
   
 - bash: |
