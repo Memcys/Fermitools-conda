@@ -26,12 +26,13 @@ steps:
   displayName: Add conda to PATH
   
 - bash: |
-    conda create --yes --quiet --name py2_build -c conda-forge python=2.7
     conda init bash
     source /home/vsts/.bashrc
+    conda create --yes --quiet --name py2_build -c conda-forge python=2.7
   displayName: Create Anaconda environment 
   
 - bash: |
+    conda init bash
     source /home/vsts/.bashrc
     conda activate py2_build
     conda install --yes -c conda-forge conda-build anaconda-client
@@ -39,6 +40,7 @@ steps:
   displayName: Set up environment for build
   
 - bash: |
+    conda init bash
     source /home/vsts/.bashrc
     conda activate py2_build
     conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
@@ -49,6 +51,7 @@ steps:
   displayName: Run build
   
 - bash: |
+    conda init bash
     source /home/vsts/.bashrc
     conda activate py2_build
     #anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/osx-64/fermitools*.tar.bz2
@@ -57,6 +60,7 @@ steps:
   displayName: Upload Mac Binary
   
 - bash: |
+    conda init bash
     source /home/vsts/.bashrc
     conda activate py2_build
     anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /usr/share/miniconda/envs/py2_build/conda-bld/linux-64/fermitools*.tar.bz2
@@ -65,6 +69,7 @@ steps:
   displayName: Upload Linux Binary
   
 - bash: |
+    conda init bash
     source /home/vsts/.bashrc
     conda activate test
     ST-unit-test --bit64
