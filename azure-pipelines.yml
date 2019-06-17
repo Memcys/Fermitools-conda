@@ -46,7 +46,6 @@ steps:
     conda create --yes --quiet --use-local --name test -c conda-forge/label/cf201901 -c fermi -c jasercion/label/dev fermitools fermitools-test-scripts
     mkdir test
     cd test
-    conda deactivate
   displayName: Run build
   
 - bash: |
@@ -54,7 +53,6 @@ steps:
     source /home/vsts/.bashrc
     conda activate py2_build
     #anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/osx-64/fermitools*.tar.bz2
-    conda deactivate
   condition: and(succeeded(), eq(variables['imageName'], 'macOS-10.13'))
   displayName: Upload Mac Binary
   
@@ -63,7 +61,6 @@ steps:
     source /home/vsts/.bashrc
     conda activate py2_build
     anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /usr/share/miniconda/envs/py2_build/conda-bld/linux-64/fermitools*.tar.bz2
-    conda deactivate
   condition: and(succeeded(), eq(variables['imageName'], 'ubuntu-16.04'))
   displayName: Upload Linux Binary
   
