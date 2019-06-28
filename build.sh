@@ -56,6 +56,7 @@ scons -C ScienceTools \
       --ccflags="${CFLAGS}" \
       --cxxflags="${CXXFLAGS}" \
       --ldflags="${LDFLAGS}" \
+      --compile-debug \
       all
 
 rm -rf ${PREFIX}/bin/gcc
