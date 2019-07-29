@@ -63,3 +63,41 @@ stages:
       displayName: 'Run the build'
     - bash: anaconda upload -u fermi --label=dev anaconda upload /usr/local/miniconda/conda-bld/osx-64/fermitools-*
       displayName: 'Upload build to Anaconda Cloud'
+
+- stage: linux_test_stage
+  displayName: 'Ubuntu Test Stage'
+  condition: succeeded('linux_build_stage')
+  jobs:
+  - job: testTools
+    displayName: 'Test the Fermitools'
+    timeoutInMinutes: 150
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - bash: echo "##vso[task.prependpath]$CONDA/bin"
+      displayName: 'Add conda to PATH'
+    - bash: conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
+      displayName: 'Install the tools and test scripts'
+    - bash: ST-unit-test --bit64
+      displayName: 'Run Unit Tests'
+
+- stage: macos_test_stage
+  displayName: 'MacOS Test Stage'
+  condition: succeeded('macos_build_stage')
+  jobs:
+  - job: testTools
+    displayName: 'Test the Fermitools'
+    timeoutInMinutes: 150
+    pool:
+      vmImage: 'macOS-10.13'
+    steps:
+    - bash: echo "##vso[task.prependpath]$CONDA/bin"
+      displayName: 'Add conda to PATH'
+    # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
+    # We need to take ownership if we want to update conda or install packages globally
+    - bash: sudo chown -R $USER $CONDA
+      displayName: 'Take ownership of conda installation' 
+    - bash: conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
+      displayName: 'Install the tools and test scripts'
+    - bash: ST-unit-test --bit64
+      displayName: 'Run Unit Tests'
