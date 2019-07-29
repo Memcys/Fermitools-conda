@@ -10,6 +10,10 @@ variables:
 - group: Anaconda Keys
 
 stages:
+
+# Linux Stages - Microsoft Hosted VMs
+
+  # Linux Build Stage
 - stage: linux_build_stage
   displayName: 'Ubuntu Build Stage'
   jobs:
@@ -19,8 +23,12 @@ stages:
     pool: 
       vmImage: 'ubuntu-16.04'
     steps:
+    # Manually adding conda to the PATH is a step required by Microsoft
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
       displayName: 'Add conda to PATH'
+    # This step is necessary because Conda no longer carries gcc-4.x 
+    # compilers.  This can be removed once the Fermitools are C++11
+    # compliant. 
     - bash: |
         sudo update-alternatives --remove-all gcc
         sudo update-alternatives --remove-all g++
@@ -34,6 +42,7 @@ stages:
         which gcc
         gcc --version
       displayName: 'Install and set up gcc-4.8'
+    # Build commands start here
     - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
@@ -41,6 +50,7 @@ stages:
     - bash: anaconda upload -u fermi --label=dev /usr/share/miniconda/conda-bld/linux-64/fermitools-*
       displayName: 'Upload build to Anaconda Cloud'
 
+  #Linux Test Stage
 - stage: linux_test_stage
   displayName: 'Ubuntu Test Stage'
   condition: succeeded('linux_build_stage')
@@ -58,6 +68,9 @@ stages:
     - bash: ST-unit-test --bit64
       displayName: 'Run Unit Tests'
 
+# MacOS Stages - Microsoft Hosted VMs
+
+  # MacOS Build Stage
 - stage: macos_build_stage
   displayName: 'MacOS Build Stage'
   dependsOn: []
@@ -68,12 +81,14 @@ stages:
     pool: 
       vmImage: 'macOS-10.13'
     steps:
+    # Manually adding conda to the PATH is a step required by Microsoft
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
       displayName: 'Add conda to PATH'
     # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
     # We need to take ownership if we want to update conda or install packages globally
     - bash: sudo chown -R $USER $CONDA
       displayName: 'Take ownership of conda installation' 
+    # Build commands start here
     - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
@@ -81,6 +96,7 @@ stages:
     - bash: anaconda upload -u fermi --label=dev anaconda upload /usr/local/miniconda/conda-bld/osx-64/fermitools-*
       displayName: 'Upload build to Anaconda Cloud'
 
+  # MacOS Test Stage
 - stage: macos_test_stage
   displayName: 'MacOS Test Stage'
   condition: succeeded('macos_build_stage')
@@ -91,6 +107,7 @@ stages:
     pool:
       vmImage: 'macOS-10.13'
     steps:
+    # Manually adding conda to the PATH is a step required by Microsoft
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
       displayName: 'Add conda to PATH'
     # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
