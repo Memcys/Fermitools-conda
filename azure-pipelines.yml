@@ -10,8 +10,8 @@ variables:
 - group: Anaconda Keys
 
 stages:
-- stage: build_stage
-  displayName: 'Build Stage'
+- stage: linux_build_stage
+  displayName: 'Ubuntu Build Stage'
   jobs:
   - job: buildTools
     displayName: 'Build the Fermitools'
@@ -34,6 +34,23 @@ stages:
         which gcc
         gcc --version
       displayName: 'Install and set up gcc-4.8'
+    - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
+      displayName: 'Set up build environment'
+    - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
+      displayName: 'Run the build'
+
+- stage: macos_build_stage
+  displayName: 'MacOS Build Stage'
+  dependsOn: []
+  jobs:
+  - job: buildTools
+    displayName: 'Build the Fermitools'
+    timeoutInMinutes: 150
+    pool: 
+      vmImage: 'macOS-10.13'
+    steps:
+    - bash: echo "##vso[task.prependpath]$CONDA/bin"
+      displayName: 'Add conda to PATH'
     - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
