@@ -24,6 +24,7 @@ stages:
     - bash: |
         sudo apt-get install --yes gcc-4.8
         which gcc
+        gcc --version
       displayName: 'Install gcc-4.8'
     - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
       displayName: 'Set up build environment'
