@@ -21,7 +21,10 @@ stages:
     steps:
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
       displayName: 'Add conda to PATH'
-    - bash: sudo apt-get install --yes gcc-4.8
+    - bash: |
+        sudo apt-get install --yes gcc-4.8
+        which gcc
+      displayName: 'Install gcc-4.8'
     - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
