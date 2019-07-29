@@ -47,7 +47,7 @@ stages:
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
       displayName: 'Run the build'
-    - bash: anaconda upload -u fermi --label=dev /usr/share/miniconda/conda-bld/linux-64/fermitools-*
+    - bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload -u fermi --label=dev /usr/share/miniconda/conda-bld/linux-64/fermitools-*
       displayName: 'Upload build to Anaconda Cloud'
 
   #Linux Test Stage
@@ -93,7 +93,7 @@ stages:
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
       displayName: 'Run the build'
-    - bash: anaconda upload -u fermi --label=dev anaconda upload /usr/local/miniconda/conda-bld/osx-64/fermitools-*
+    - bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload -u fermi --label=dev anaconda upload /usr/local/miniconda/conda-bld/osx-64/fermitools-*
       displayName: 'Upload build to Anaconda Cloud'
 
   # MacOS Test Stage
