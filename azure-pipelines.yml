@@ -44,7 +44,7 @@ stages:
         gcc --version
       displayName: 'Install and set up gcc-4.8'
     # Build commands start here
-    - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
+    - bash: conda install --yes --quiet -c conda-forge python=2.7 anaconda-client conda-build
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
       displayName: 'Run the build'
@@ -92,7 +92,7 @@ stages:
     - bash: sudo chown -R $USER $CONDA
       displayName: 'Take ownership of conda installation' 
     # Build commands start here
-    - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
+    - bash: conda install --yes --quiet -c conda-forge python=2.7 anaconda-client conda-build
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
       displayName: 'Run the build'
