@@ -9,57 +9,19 @@ trigger:
 variables:
 - group: Anaconda Keys
 
-strategy:
-  matrix:
-    linux:
-      imageName: 'ubuntu-16.04'
-      timeoutInMinutes: 150
-    mac:
-      imageName: 'macOS-10.13'
-      timeoutInMinutes: 150
-      
-pool:
-  vmImage: $(imageName)
-  
-steps:
-- bash: echo "##vso[task.prependpath]$CONDA/bin"
-  displayName: Add conda to PATH
-  
-#- bash: |
-#    conda init bash
-#    source /home/vsts/.bashrc
-#    conda create --yes --quiet --name py2_build -c conda-forge python=2.7
-#  displayName: Create Anaconda environment 
-  
-#- bash: |
-#    conda install --yes -c conda-forge anaconda-client
-#    conda create --yes --quiet --name py2_build -c conda-forge python=2.7
-#  displayName: Set up environment for build
-  
-- bash: |
-    conda install --yes -c conda-forge/label/cf201901 anaconda-client python=2.7 conda-build
-    conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
-    conda create --yes --quiet --use-local --name test -c conda-forge/label/cf201901 -c fermi -c jasercion/label/dev fermitools fermitools-test-scripts
-    mkdir test
-    cd test
-  displayName: Run build
-  
-- bash: |
-    conda init bash
-    source /home/vsts/.bashrc
-    conda activate py2_build
-    #anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /Users/vsts/.conda/envs/py2_build/conda-bld/osx-64/fermitools*.tar.bz2
-  condition: and(succeeded(), eq(variables['imageName'], 'macOS-10.13'))
-  displayName: Upload Mac Binary
-  
-- bash: |
-    anaconda -v -t $(Jasercion-Anaconda-Api) upload --force -l dev -u fermi /usr/share/miniconda/conda-bld/linux-64/fermitools*.tar.bz2
-  condition: and(succeeded(), eq(variables['imageName'], 'ubuntu-16.04'))
-  displayName: Upload Linux Binary
-  
-- bash: |
-    conda init bash
-    source /home/vsts/.bashrc
-    conda activate test
-    ST-unit-test --bit64
-  displayName: Run unit tests
+stages:
+- stage: build_stage
+  displayName: 'Build Stage'
+  jobs:
+  - job: buildTools
+    displayName: 'Build the Fermitools'
+    timeoutInMinutes: 150
+    pool: 
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - bash: echo "##vso[task.prependpath]$CONDA/bin"
+      displayName: 'Add conda to PATH'
+    - bash: conda install --yes --quiet -c conda-forge python=2.7 conda-build
+      displayName: 'Set up build environment'
+    - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
+      displayName: 'Run the build'
