@@ -11,8 +11,9 @@ variables:
 
 stages:
 
+#####################################
 # Linux Stages - Microsoft Hosted VMs
-
+#####################################
   # Linux Build Stage
 - stage: linux_build_stage
   displayName: 'Ubuntu Build Stage'
@@ -67,9 +68,11 @@ stages:
       displayName: 'Install the tools and test scripts'
     - bash: ST-unit-test --bit64
       displayName: 'Run Unit Tests'
+#####################################
 
+#####################################
 # MacOS Stages - Microsoft Hosted VMs
-
+#####################################
   # MacOS Build Stage
 - stage: macos_build_stage
   displayName: 'MacOS Build Stage'
@@ -118,3 +121,4 @@ stages:
       displayName: 'Install the tools and test scripts'
     - bash: ST-unit-test --bit64
       displayName: 'Run Unit Tests'
+#####################################
