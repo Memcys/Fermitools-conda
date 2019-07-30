@@ -64,7 +64,11 @@ stages:
     steps:
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
       displayName: 'Add conda to PATH'
-    - bash: conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
+    # junit-xml must be installed so the unit test script
+    # can produce output in the JUnit format
+    - bash: |
+        pip install junit-xml
+        conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
       displayName: 'Install the tools and test scripts'
     - bash: |
         source activate
@@ -123,7 +127,11 @@ stages:
     # We need to take ownership if we want to update conda or install packages globally
     - bash: sudo chown -R $USER $CONDA
       displayName: 'Take ownership of conda installation' 
-    - bash: conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
+    # junit-xml must be installed so the unit test script
+    # can produce output in the JUnit format
+    - bash: |
+        pip install junit-xml
+        conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
       displayName: 'Install the tools and test scripts'
     - bash: |
         source activate
