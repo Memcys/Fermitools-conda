@@ -70,6 +70,10 @@ stages:
         source activate
         ST-unit-test --bit64
       displayName: 'Run Unit Tests'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'ST-unit-test-Output.xml'
 #####################################
 
 #####################################
@@ -125,4 +129,8 @@ stages:
         source activate
         ST-unit-test --bit64
       displayName: 'Run Unit Tests'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'ST-unit-test-Output.xml'
 #####################################
