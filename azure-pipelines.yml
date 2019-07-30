@@ -66,7 +66,9 @@ stages:
       displayName: 'Add conda to PATH'
     - bash: conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
       displayName: 'Install the tools and test scripts'
-    - bash: ST-unit-test --bit64
+    - bash: |
+        source activate
+        ST-unit-test --bit64
       displayName: 'Run Unit Tests'
 #####################################
 
@@ -119,6 +121,8 @@ stages:
       displayName: 'Take ownership of conda installation' 
     - bash: conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
       displayName: 'Install the tools and test scripts'
-    - bash: ST-unit-test --bit64
+    - bash: |
+        source activate
+        ST-unit-test --bit64
       displayName: 'Run Unit Tests'
 #####################################
