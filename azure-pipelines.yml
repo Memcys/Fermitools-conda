@@ -27,7 +27,7 @@ stages:
       vmImage: 'ubuntu-16.04'
     steps:
     ######DEBUG######
-    - bash: echo $version
+    - bash: echo $(version)
     ######DEBUG######
     # Manually adding conda to the PATH is a step required by Microsoft
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
