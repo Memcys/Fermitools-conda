@@ -68,7 +68,7 @@ stages:
     # can produce output in the JUnit format
     - bash: |
         pip install junit-xml
-        conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
+        conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi/label/dev fermitools fermitools-test-scripts
       displayName: 'Install the tools and test scripts'
     - bash: |
         source activate
@@ -131,7 +131,7 @@ stages:
     # can produce output in the JUnit format
     - bash: |
         pip install junit-xml
-        conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi -c fermi/label/dev fermitools fermitools-test-scripts
+        conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi/label/dev fermitools fermitools-test-scripts
       displayName: 'Install the tools and test scripts'
     - bash: |
         source activate
