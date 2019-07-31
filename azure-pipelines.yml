@@ -67,8 +67,8 @@ stages:
     # junit-xml must be installed so the unit test script
     # can produce output in the JUnit format
     - bash: |
-        pip install junit-xml
         conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi/label/dev fermitools fermitools-test-scripts
+        pip install junit-xml
       displayName: 'Install the tools and test scripts'
     - bash: |
         source activate
@@ -130,8 +130,8 @@ stages:
     # junit-xml must be installed so the unit test script
     # can produce output in the JUnit format
     - bash: |
-        pip install junit-xml
         conda install --yes --quiet -c conda-forge/label/cf201901 -c fermi/label/dev fermitools fermitools-test-scripts
+        pip install junit-xml
       displayName: 'Install the tools and test scripts'
     - bash: |
         source activate
