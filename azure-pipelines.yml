@@ -53,7 +53,7 @@ stages:
       displayName: 'Query last build number of this version'
     # Increase buildnumber if it exists
     - bash: echo "##vso[task.setvariable variable=BUILD_NUMBER]($(BUILD_NUMBER)+1)"
-      condition: not(contains(variables['BUILD_NUMBER'], variables['noSuch']))
+      condition: notIn(variables['BUILD_NUMBER'], variables['noSuch'])
       displayName: 'Iterate build number if it exists'
     # Build commands start here
     # Increase buildnumber if it exists
@@ -124,7 +124,7 @@ stages:
       displayName: 'Query last build number of this version'
     # Increase buildnumber if it exists
     - bash: echo "##vso[task.setvariable variable=BUILD_NUMBER]($(BUILD_NUMBER)+1)"
-      condition: not(contains(variables['BUILD_NUMBER'], variables['noSuch']))
+      condition: notIn(variables['BUILD_NUMBER'], variables['noSuch'])
       displayName: 'Iterate build number if it exists'
     # Build commands start here
     - bash: conda install --yes --quiet -c conda-forge python=2.7 anaconda-client conda-build
