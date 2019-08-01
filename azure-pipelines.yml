@@ -9,7 +9,7 @@ trigger:
 variables:
 - group: Anaconda Keys
 - name: version
-  value: grep -C1 'set version:' meta.yaml | tail -n1 | awk '{ print $5}' | sed 's/"//g'
+  value: grep -i 'set version' meta.yaml | awk '{ print $5}' | sed 's/"//g'
 
 stages:
 
