@@ -84,7 +84,7 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'ST-unit-test-Output.xml'
+        testResultsFiles: 'ST-unit-test-Output.xml; ST-unit-test.log'
 #####################################
 
 #####################################
@@ -147,5 +147,5 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'ST-unit-test-Output.xml'
+        testResultsFiles: 'ST-unit-test-Output.xml; ST-unit-test.log'
 #####################################
