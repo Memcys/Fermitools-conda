@@ -16,7 +16,8 @@ stages:
 #####################################
 # Linux Stages - Microsoft Hosted VMs
 #####################################
-  # Linux Build Stage
+
+  ### Linux Build Stage ###
 - stage: linux_build_stage
   displayName: 'Ubuntu Build Stage'
   jobs:
@@ -48,7 +49,9 @@ stages:
         which gcc
         gcc --version
       displayName: 'Install and set up gcc-4.8'
+
     ### Build commands start here ###
+
     # Query last build number for this version and iterate if necessary
     - bash: echo "##vso[task.setvariable variable=BUILD_NUMBER]$(BUILD_NUMBER)"
       displayName: 'Query last build number of this version'
@@ -63,7 +66,7 @@ stages:
     - bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload -u fermi --label=dev /usr/share/miniconda/conda-bld/linux-64/fermitools-*
       displayName: 'Upload build to Anaconda Cloud'
 
-  #Linux Test Stage
+  ### Linux Test Stage ###
 - stage: linux_test_stage
   displayName: 'Ubuntu Test Stage'
   condition: succeeded('linux_build_stage')
@@ -89,13 +92,14 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'ST-unit-test-Output.xml; ST-unit-test.log'
+        testResultsFiles: 'ST-unit-test-Output.xml'
 #####################################
 
 #####################################
 # MacOS Stages - Microsoft Hosted VMs
 #####################################
-  # MacOS Build Stage
+
+  ### MacOS Build Stage ##
 - stage: macos_build_stage
   displayName: 'MacOS Build Stage'
   dependsOn: []
@@ -115,8 +119,10 @@ stages:
     # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
     # We need to take ownership if we want to update conda or install packages globally
     - bash: sudo chown -R $USER $CONDA
-      displayName: 'Take ownership of conda installation' 
+      displayName: 'Take ownership of conda installation'
+
     ### Build commands start here ###
+
     # Query last build number for this version and iterate if necessary
     - bash: echo "##vso[task.setvariable variable=BUILD_NUMBER]$(BUILD_NUMBER)"
       displayName: 'Query last build number of this version'
@@ -131,7 +137,7 @@ stages:
     - bash: anaconda -v -t $(Jasercion-Anaconda-Api) upload -u fermi --label=dev /usr/local/miniconda/conda-bld/osx-64/fermitools-*
       displayName: 'Upload build to Anaconda Cloud'
 
-  # MacOS Test Stage
+  ### MacOS Test Stage ###
 - stage: macos_test_stage
   displayName: 'MacOS Test Stage'
   condition: succeeded('macos_build_stage')
@@ -162,5 +168,5 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'ST-unit-test-Output.xml; ST-unit-test.log'
+        testResultsFiles: 'ST-unit-test-Output.xml'
 #####################################
