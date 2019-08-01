@@ -50,7 +50,7 @@ stages:
     # Build commands start here
     # Increase buildnumber if it exists
     - bash: BUILD_NUMBER = $(BUILD_NUMBER)+1
-      condition: not(contains(variables['BUILD_NUMBER'], ${{ Null }}))
+      condition: not(contains(variables['BUILD_NUMBER'], $[['']]}))
     - bash: conda install --yes --quiet -c conda-forge python=2.7 anaconda-client conda-build
       displayName: 'Set up build environment'
     - bash: conda build --python=2.7 -c conda-forge/label/cf201901 -c fermi .
