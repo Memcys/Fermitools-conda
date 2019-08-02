@@ -69,15 +69,27 @@ rm -rf ${PREFIX}/include/fftw
 
 # Libraries
 mkdir -p $PREFIX/lib/${condaname}
-cp -R lib/*/* $PREFIX/lib/${condaname}
+if [ -d "lib/sid-x86_64-64bit-gcc48" ]; then
+    cp -R lib/sid-x86_64-64bit-gcc48/*/* $PREFIX/lib/${condaname}
+else
+    cp -R lib/*/* $PREFIX/lib/${condaname}
+fi
 
 # Headers
 mkdir -p $PREFIX/include/${condaname}
-cp -R include/* $PREFIX/include/${condaname}
+if [ -d "include/sid-x86_64-64bit-gcc48" ]; then
+    cp -R include/sid-x86_64-64bit-gcc48/* $PREFIX/include/${condaname}
+else
+    cp -R include/* $PREFIX/include/${condaname}
+fi
 
 # Binaries
 mkdir -p $PREFIX/bin/${condaname}
-cp -R exe/*/* $PREFIX/bin/${condaname}
+if [ -d "exe/sid-x86_64-64bit-gcc48" ]; then
+    cp -R exe/sid-x86_64-64bit-gcc48/*/* $PREFIX/bin/${condaname}
+else
+    cp -R exe/*/* $PREFIX/bin/${condaname}
+fi
 
 # Python packages
 # Figure out the path to the site-package directory
