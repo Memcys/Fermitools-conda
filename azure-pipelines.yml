@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- patch_branch
 
 variables:
 - group: Anaconda Keys
