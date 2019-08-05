@@ -71,6 +71,8 @@ rm -rf ${PREFIX}/include/fftw
 mkdir -p $PREFIX/lib/${condaname}
 if [ -d "lib/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     echo "Subdirectory Found! (Lib)"
+    pwd 
+    ls
     cp -R lib/debianstretch/sid-x86_64-64bit-gcc48/*/* $PREFIX/lib/${condaname}
 else
     echo "Subdirectory Not Found! (Lib)"
