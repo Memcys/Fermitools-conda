@@ -73,7 +73,6 @@ if [ -d "lib/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     echo "Subdirectory Found! (Lib)"
     pwd 
     ls lib/
-    ls lib/debianstretch
     cp -R lib/debianstretch/sid-x86_64-64bit-gcc48/*/* $PREFIX/lib/${condaname}
 else
     echo "Subdirectory Not Found! (Lib)"
