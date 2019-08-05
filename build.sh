@@ -75,7 +75,7 @@ if [ -d "lib/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     ls lib/
     ls lib/debianstretch/
     ls lib/debianstretch/sid-x86_64-64bit-gcc48/
-    cp -R lib/debianstretch/sid-x86_64-64bit-gcc48/*/* $PREFIX/lib/${condaname}
+    cp -R lib/*/*/* $PREFIX/lib/${condaname}
 else
     echo "Subdirectory Not Found! (Lib)"
     cp -R lib/*/* $PREFIX/lib/${condaname}
@@ -85,7 +85,7 @@ fi
 mkdir -p $PREFIX/include/${condaname}
 if [ -d "include/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     echo "Subdirectory Found! (Include)"
-    cp -R include/debianstretch/sid-x86_64-64bit-gcc48/* $PREFIX/include/${condaname}
+    cp -R include/*/* $PREFIX/include/${condaname}
 else
     echo "Subdirectory Not Found! (Include)"
     cp -R include/* $PREFIX/include/${condaname}
@@ -95,7 +95,7 @@ fi
 mkdir -p $PREFIX/bin/${condaname}
 if [ -d "exe/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     echo "Subdirectory Found! (bin)"
-    cp -R exe/debianstretch/sid-x86_64-64bit-gcc48/*/* $PREFIX/bin/${condaname}
+    cp -R exe/*/*/* $PREFIX/bin/${condaname}
 else
     echo "Subdirectory Not Found! (bin)"
     cp -R exe/*/* $PREFIX/bin/${condaname}
