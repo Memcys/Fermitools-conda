@@ -69,7 +69,7 @@ rm -rf ${PREFIX}/include/fftw
 
 # Libraries
 mkdir -p $PREFIX/lib/${condaname}
-if [ -d "lib/sid-x86_64-64bit-gcc48" ]; then
+if [ -d "lib/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     echo "Subdirectory Found! (Lib)"
     cp -R lib/sid-x86_64-64bit-gcc48/*/* $PREFIX/lib/${condaname}
 else
@@ -79,7 +79,7 @@ fi
 
 # Headers
 mkdir -p $PREFIX/include/${condaname}
-if [ -d "include/sid-x86_64-64bit-gcc48" ]; then
+if [ -d "include/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     echo "Subdirectory Found! (Include)"
     cp -R include/sid-x86_64-64bit-gcc48/* $PREFIX/include/${condaname}
 else
@@ -89,7 +89,7 @@ fi
 
 # Binaries
 mkdir -p $PREFIX/bin/${condaname}
-if [ -d "exe/sid-x86_64-64bit-gcc48" ]; then
+if [ -d "exe/debianstretch/sid-x86_64-64bit-gcc48" ]; then
     echo "Subdirectory Found! (bin)"
     cp -R exe/sid-x86_64-64bit-gcc48/*/* $PREFIX/bin/${condaname}
 else
