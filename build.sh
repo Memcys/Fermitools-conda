@@ -21,8 +21,8 @@ fi
 #CXXFLAGS=${CXXFLAGS//c++17/c++11}
 
 # Add optimization
-export CFLAGS="-O2 ${CFLAGS}"
-export CXXFLAGS="-O2 ${CXXFLAGS}"
+export CFLAGS="-g ${CFLAGS}"
+export CXXFLAGS="-g ${CXXFLAGS}"
 
 # Add rpaths needed for our compilation
 export LDFLAGS="${LDFLAGS} -Wl,-rpath,${PREFIX}/lib,-rpath,${PREFIX}/lib/root,-rpath,${PREFIX}/lib/${condaname}"
@@ -37,7 +37,7 @@ if [ "$(uname)" == "Darwin" ]; then
 else
     
     # This is needed on Linux
-    export CXXFLAGS="-std=c++11 ${CXXFLAGS}" 
+    export CXXFLAGS="-fPIC -std=c++11 ${CXXFLAGS}" 
     export LDFLAGS="${LDFLAGS} -fopenmp"
 
 fi
