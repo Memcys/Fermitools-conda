@@ -37,25 +37,25 @@ if [ "$(uname)" == "Darwin" ]; then
 else
     
     # This is needed on Linux
-    export CXXFLAGS="-fPIC -std=c++11 ${CXXFLAGS}" 
+    export CXXFLAGS="-std=c++11 ${CXXFLAGS}" 
     export LDFLAGS="${LDFLAGS} -fopenmp"
 
 fi
 
-ln -s ${cc} ${PREFIX}/bin/gcc
+ln -sf ${cc} ${PREFIX}/bin/gcc
 
-ln -s ${CXX} ${PREFIX}/bin/g++
+ln -sf ${CXX} ${PREFIX}/bin/g++
 
 scons -C ScienceTools \
       --site-dir=../SConsShared/site_scons \
       --conda=${PREFIX} \
       --use-path \
-      -j ${CPU_COUNT} \
+      -j "${CPU_COUNT}" \
       --with-cc="${CC}" \
       --with-cxx="${CXX}" \
       --ccflags="${CFLAGS}" \
       --cxxflags="${CXXFLAGS}" \
-      --ldflags="${LDFLAGS}" \
+      --ldflags="-fPIC --enable-shared ${LDFLAGS}" \
       all
 
 rm -rf ${PREFIX}/bin/gcc

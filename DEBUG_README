@@ -1,0 +1,1 @@
+If building on Glitz unset the LDFLAGS environment variable.  Otherwise you will run into linking errors due to the fact that the linked python executable will be the incorrect installation.
